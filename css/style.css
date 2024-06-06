@@ -1,4 +1,102 @@
-* {
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+
+@keyframes pending {
+    25% {
+        transform: translateX(30dvw);
+    }
+    50% {
+        transform: scaleY(5) translateY(-2dvh);
+    }
+    75% {
+        transform: translateX(-30dvw);
+    }
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background: #4400ff;
+    border: 10px double #444444;
+    height: 100dvh;
+}
+
+h1 {
+    font-size: 20dvw;
+    text-align: center;
+}
+
+div#display-box {
+    border: 2px solid black;
+    height: 40dvh;
+    padding: 1px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    font-family: "Tiny5", sans-serif;
+}
+
+div#user-box {
+    border: 4px ridge red;
+    height: 20dvh;
+    padding: 1dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#ffffff, #d3d2b0);
+}
+
+div.number {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px white solid;
+    background: #000000;
+    color: rgb(17, 164, 17);
+}
+
+div#message {
+    grid-column: 1 / span 3;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px white solid;
+    background: #000000;
+    color: rgb(17, 164, 17);
+}
+
+div#pending {
+    animation: pending 4s infinite linear;
+}
+
+input#guess {
+    height: 5dvh;
+    text-align: center;
+}
+
+input#guess:focus {
+    border: 8px inset yellow;
+}
+
+section#x-ception {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    width: 20dvw;
+    aspect-ratio: 1;
+    font-size: 40px; 
+}
+
+sup, sub {
+    font-size: 30px;
+}
+
+span {
+    font-size: 30px;
+}
