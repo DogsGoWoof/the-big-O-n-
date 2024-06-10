@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1>The Big O<sub><em>n</em></sub></h1>
+        <h1>The Big O<sub><em>(n)</em></sub></h1>
     </header>
     <main>
         <section id="display">
@@ -22,6 +22,12 @@
         </section>
         <section id="user-space">
             <div class=" box" id="user-box">
+                <div id="start-reset">
+                    <p id="start-text">Start</p>
+                    <div id="start"></div>
+                    <p id="reset-text">Reset</p>
+                    <div id="reset"></div>
+                </div>
                 <div id="pad">
                     <div class="padbox" id="pad-one"></div>
                     <div class="padbox" id="pad-two"></div>
@@ -38,9 +44,9 @@
             </div>
         </section>
         <section id="x-ception">
-            <button id="high-low"><sup>High|</sup>^ v<sub>|low</sub></button>
+            <button id="high-low"><span><sup>High|</sup>^<br /><span id="flip">^</span><sub>|low</sub></span></button>
             <button id="even-odd">EVEN<br /><span id="odd">oDd</span></button>
-            <button id="sub-tractor">max-min-ing</sub></button>
+            <button id="sub-tractor"><span>max-min-ing</sub></span></button>
             <button id="dividends"><span>div/iding e/nd</span></button>
         </section>
     </main>

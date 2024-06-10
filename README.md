@@ -11,11 +11,12 @@ Input area is for entering a `number` guess of what the `n-value` could be. The 
 Help buttons below:
     
 - __High^vlow__: Compares the number entered in the `input` field to to n-value and returns whether it is higher or lower. Changes a range value.
-- __EVEN+-oDd__: returns whether or not the n-value is even or odd.
-- __max-min-ing__: subtracts the min-value from the max-value (max - min) and compares the result to n-value. Changes a range value.
-- __div/iding e/nd__: divides the n-value by the min-value (n / min) and the max-value by the n-value (max / n) and compares results(ratios). Changes a range value (if there is a difference).
+- __EVEN+-oDd__: Determines whether the n-value is even or odd.
+- __max-min-ing__: Subtracts the min-value from the max-value (max - min) and the min from the nValue and compares the results to see if they would narrow the range while still containing the n-value. Changes a range value.
+- __div/iding e/nd__: Divides the n-value by the min-value (n / min) and the max-value by the n-value (max / n) and compares the result(ratios). Changes a range value (if there is a difference).
 
 Each help button can only be used once per game.
+Both max-min-ing and div/iding e/nd can only be used if they change a range value, otherwise they will display a message to the player telling them they result in no change.
 
 ### Technologies used
     HTML, CSS, JavaScript

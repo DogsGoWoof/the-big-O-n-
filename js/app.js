@@ -15,6 +15,7 @@ const divBtnEl = document.getElementById("button-container");
 const divBtnElBlu = document.getElementById("but-one");
 const divBtnElGrn = document.getElementById("but-two");
 const divBtnElRed = document.getElementById("but-three");
+const startResetContainer = document.getElementById("start-reset");
 
 let minRangeValue;
 let maxRangeValue;
@@ -22,7 +23,11 @@ let nValue;
 let tries = 0;
 let win = false;
 let isRangeSet = false;
-let interID;
+let interID; // stores the random number visual change as a setInterval()
+let isSwitch = false; // switch to allow for different randomNumber range generation
+let isStart = false;
+let isReadRules = false;
+let pageTurner = 0;
 
 const guess = () => {
     if (event.key === "Enter") {
@@ -41,20 +46,17 @@ const guess = () => {
 const verify = (number) => {
     if (number === nValue) {
         win = true;
-        return `On the dot`;
-    } else if (number > nValue && (number - nValue) < 3) {
-        return `Apro-sO close`;
-    } else if (number < nValue && (nValue - number) < 3) {
-
-    } else {
-        return `Off the mark`;
+    } else if (number < nValue) {
+        return "Underestimated";
+    } else if (number > nValue) {
+        return "Overestimated"
     }
 };
 
 const winLose = () => {
     if (tries === 3 && !win) {
         clearInterval(interID);
-        nDisplayEl.innerHTML = "No O<sub>(n)</sub>";
+        nDisplayEl.innerHTML = "(´。＿。｀)";
         messageDisplayEl.innerHTML = `No more tries left.<br> Try again?<br> Y/N?`;
         resetPrompt()
     } else if (win) {
@@ -73,8 +75,20 @@ const showTries = (message) => {
 }
 
 const updateRange = () => {
-    minDisplayEl.textContent = minRangeValue;
-    maxDisplayEl.textContent = maxRangeValue;
+    if (minRangeValue > 999) {
+        minDisplayEl.textContent = minRangeValue.toLocaleString();
+    } else if (minRangeValue >= 0) {
+        minDisplayEl.textContent = minRangeValue;
+    } else {
+        minDisplayEl.textContent = "";
+    }
+    if (maxRangeValue > 999) {
+        maxDisplayEl.textContent = maxRangeValue.toLocaleString();
+    } else if (maxRangeValue > minRangeValue) {
+        maxDisplayEl.textContent = maxRangeValue;
+    } else {
+        maxDisplayEl.textContent = "";
+    }
 };
 
 const highLow = event => {
@@ -112,50 +126,69 @@ const evenOdd = () => {
 const maxMin = () => {
     const maxMinDif = maxRangeValue - minRangeValue;
     let nMinDif = nValue - minRangeValue;
-    if (nMinDif < nValue || maxMinDif < maxRangeValue) {
-        if (nMinDif > minRangeValue) {
-            minRangeValue = nMinDif;
-            showTries(`min-ing max-value`);0
+    const randomMinRangeValue = nMinDif - Math.floor((Math.random() * nMinDif));
+    if (randomMinRangeValue < minRangeValue && maxMinDif < nValue) {
+        showTries(`max-min-ing comparison results in no change in range`);
+    } else if (nMinDif < nValue || maxMinDif > nValue) {
+        if (randomMinRangeValue > minRangeValue) {
+            // add some randomness to change of new min-value to make it harder to determine n-value from the change
+            minRangeValue = randomMinRangeValue;
+            showTries(`max-ing min-value`);
         } else if (maxMinDif > nValue) {
             maxRangeValue = maxMinDif;
-            showTries(`max-ing min value`);
+            showTries(`min-ing max value`);
         }
         updateRange();
         maxMinIngBtn.disabled = true;
         maxMinIngBtn.style.filter = `grayscale(200%)`;
         maxMinIngBtn.classList.toggle("bigSmall");
-    } else {
-        showTries(`Comparison results in no change`);
-    };
+    }
 }
 
 const dividingEnds = () => {
     const dividedNValue = nValue / minRangeValue;
     const dividedRangeValue = maxRangeValue / nValue;
     const dividedRatio = (dividedRangeValue / dividedNValue);
-    const tempMin = Math.floor(minRangeValue * dividedRatio);
+    const tempMin = Math.floor(minRangeValue / dividedRatio);
     const tempMax = Math.ceil(maxRangeValue / dividedRatio);
-    if (minRangeValue > 0 && (tempMin > minRangeValue || tempMax < maxRangeValue)) {
+    if (minRangeValue > 0 && (tempMin > minRangeValue && tempMin < nValue || tempMax < maxRangeValue && tempMax > nValue)) {
         if (dividedRatio < 1) {
-            minRangeValue *= Math.floor(dividedNValue / dividedRangeValue);
+            minRangeValue = tempMin;
             showTries(`min:n ratio is wider`);
         } else if (dividedRatio === 1) {
             showTries(`Equal ratios`);
         } else {
-            maxRangeValue = Math.ceil(maxRangeValue * (dividedNValue / dividedRangeValue));
+            maxRangeValue = tempMax;
             showTries(`n:max ratio is wider`);
         }
         updateRange();
         dividingEndsBtn.disabled = true;
         dividingEndsBtn.style.filter = `grayscale(200%)`;
         dividingEndsBtn.classList.toggle("colorFlashHov");
+    } else {
+        showTries(`div/iding e/nd comparison results in no change in range`);
     }
-    showTries(`Comparison results in no change`);
 };
 
 const calcRange = (min, max) => {
     nValue = Math.ceil(Math.random() * (max - min)) + min;
     console.log(nValue);
+};
+
+const startRound = () => {
+    interID = setInterval(randomNumbers, 100);
+    guessEl.value = "";
+    messageDisplayEl.innerHTML = `n is between ${minRangeValue} and ${maxRangeValue}
+    <br />Tries left: ${3 - tries}`;
+    messageDisplayEl.style.textAlign = "center";
+    messageDisplayEl.style.alignItems = "center";
+    messageDisplayEl.style.justifyContent = "center";
+    guessEl.removeEventListener("keypress", getRange);
+    guessEl.addEventListener("keypress", guess);
+    addHelpBtnFunc();
+    addBtnAnimations();
+    colorInBtn();
+    enableButtons();
 };
 
 const getRange = event => {
@@ -165,39 +198,26 @@ const getRange = event => {
             ㄟ( ▔, ▔ )ㄏ
             Please enter a valid number`;
             guessEl.value = ``;
-        } else if (!isRangeSet && typeof minRangeValue !== "number" && guessEl.value >= 0) {
+        } else if (!isRangeSet && guessEl.value >= 0 && !minRangeValue) {
             minRangeValue = parseInt(guessEl.value);
-            minDisplayEl.textContent = minRangeValue;
+            updateRange();
             messageDisplayEl.style.textAlign = "right";
             messageDisplayEl.innerText = `
             (づ￣ 3￣)づ
             Please enter range of [n]'s max-value`;
             messageDisplayEl.style.justifyContent = "end";
             guessEl.value = ``;
-        } else if (typeof maxRangeValue !== "number" && guessEl.value > minRangeValue) {
+        } else if (guessEl.value > minRangeValue) {
             maxRangeValue = parseInt(guessEl.value);
-            maxDisplayEl.textContent = maxRangeValue;
+            updateRange();
             calcRange(minRangeValue, maxRangeValue);
             isRangeSet = true;
-            interID = setInterval(randomNumbers, 100);
-            guessEl.value = ``;
-            messageDisplayEl.innerHTML = `n is between ${minRangeValue} and ${maxRangeValue}
-            <br />Tries left: ${3 - tries}`;
-            messageDisplayEl.style.textAlign = "center";
-            messageDisplayEl.style.alignItems = "center";
-            messageDisplayEl.style.justifyContent = "center";
-            guessEl.removeEventListener("keypress", getRange);
-            guessEl.addEventListener("keypress", guess);
-            addHelpBtnFunc();
-            addBtnAnimations();
-            colorInBtn();
-            enableButtons();
+            startRound();
         }
     }
 };
 
 const setRange = () => {
-    disableButtons();
     guessEl.type = "number";
     guessEl.value = "";
     messageDisplayEl.style.textAlign = "left";
@@ -232,13 +252,7 @@ const resetCall = event => {
 
 const resetPrompt = () => {
     guessEl.removeEventListener("keypress", guess);
-    disableButtons();
-    removeBtnAnimations();
-    removeHelpBtnFunc();
-    highLowBtn.style.filter = `grayscale(200%)`;
-    evenOddBtn.style.filter = `invert(30%)`;
-    maxMinIngBtn.style.filter = `grayscale(200%)`;
-    dividingEndsBtn.style.filter = `grayscale(200%)`;
+    grayButtons();
     guessEl.type = "text";
     guessEl.addEventListener("keypress", resetCall);
 }
@@ -256,10 +270,11 @@ const reset = event => {
     maxDisplayEl.textContent = "";
     guessEl.value = "";
     guessEl.type = "number";
-    messageDisplayEl.textContent = `Please enter range of [n]'s min-value`;
+    guessEl.disabled = false;
     removeWinAnim();
     setRange();
-    // divBtnEl.classList.remove("grayOut");
+    divBtnElGrn.removeEventListener("click", nextMsg)
+    clearInterval(interID);
 };
 
 const disableButtons = () => {
@@ -276,8 +291,16 @@ const enableButtons = () => {
 };
 
 const randomNumbers = () => {
-    const randomNumber = Math.ceil(Math.random() * (maxRangeValue - minRangeValue)) + minRangeValue;
-    nDisplayEl.innerHTML = `<br>${randomNumber}`;
+    let randomNumber
+    // added if-else statement to allow random number generation display min and max values
+    if (isSwitch) {
+        randomNumber = Math.ceil(Math.random() * (maxRangeValue - minRangeValue)) + minRangeValue;
+        isSwitch = false;
+    } else {
+        randomNumber = Math.floor(Math.random() * (maxRangeValue - minRangeValue)) + minRangeValue;
+        isSwitch = true;
+    }
+    nDisplayEl.innerHTML = `${randomNumber}`;
 };
 
 const addHelpBtnFunc = () => {
@@ -340,16 +363,20 @@ const addGrayOut = () => {
     dividingEndsBtn.addEventListener("click", grayOut);
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// testing area
-///////////////////////////////////////////////////////////////////////////////////////////////
-let isStart = false;
-let isReadRules = false;
-let pageTurner = 0;
+const grayButtons = () => {
+    disableButtons();
+    removeBtnAnimations();
+    removeHelpBtnFunc();
+    highLowBtn.style.filter = `grayscale(200%)`;
+    evenOddBtn.style.filter = `invert(30%)`;
+    maxMinIngBtn.style.filter = `grayscale(200%)`;
+    dividingEndsBtn.style.filter = `grayscale(200%)`;
+};
 
 const readingRules = event => {
     if (event.key === "Enter") {
-        if (guessEl.value === "Y"){
+        if (guessEl.value === "Y") {
+            pageTurner = 0;
             isReadRules = true;
             messageDisplayEl.innerHTML = `The point of the game is to find n's point between the range of a min and max.`;
             guessEl.removeEventListener("keypress", readingRules);
@@ -358,10 +385,12 @@ const readingRules = event => {
         } else if (guessEl.value === "N") {
             guessEl.removeEventListener("keypress", readingRules);
             setRange();
+            divBtnElGrn.removeEventListener("click", nextMsg)
         }
         guessEl.value = "";
     }
 };
+
 const nextMsg = () => {
     if (!isReadRules) {
         divBtnElGrn.removeEventListener("click", nextMsg)
@@ -369,42 +398,86 @@ const nextMsg = () => {
         messageDisplayEl.innerHTML = `Would you like to read the rules?<br />Y/N?`;
         guessEl.type = "text";
         guessEl.addEventListener("keypress", readingRules);
-}
+    }
     if (pageTurner === 0 && isReadRules) {
-        messageDisplayEl.innerHTML = `First, set a range in which n will be between.`;
+        messageDisplayEl.innerHTML = `First, set the range the [n-value] will be between.`;
         pageTurner++;
     } else if (pageTurner === 1) {
-        messageDisplayEl.innerHTML = `Choose the minimum and maximum range values by entering them in the input followed by pressing "Enter".`;
+        messageDisplayEl.innerHTML = `Decide the minimum range value followed by the maximum range value by entering them in the input below followed by pressing "Enter".`;
+        pageTurner++;
     } else if (pageTurner === 2) {
         messageDisplayEl.innerHTML = `Then try to guess what the generated n-value is using the same input for your guesses.`;
-    } else if (pageTurner === 2) {
-        messageDisplayEl.innerHTML = `Then try to guess what the generated n-value is using the same input for your guesses.`;
+        pageTurner++;
+    } else if (pageTurner === 3) {
+        messageDisplayEl.innerHTML = `If you want clues on what the [n-value] may be use the buttons below to (possibly) change the min and max values.<br />The [n-value] will always be within the displayed range.`;
+        pageTurner++;
+    } else if (pageTurner === 4) {
+        messageDisplayEl.innerHTML = `If you'd like to know more on what the buttons do refer to the README.`;
+        pageTurner++;
+    } else if (pageTurner === 5) {
+        messageDisplayEl.innerHTML = `Would you like to read the rules again?<br />Y/N?`;
+        hideConfirmPrompt();
+        guessEl.addEventListener("keypress", readingRules);
     }
 };
 
 const showConfirmPrompt = () => {
+    // create and add parent div to format confirm prompt
+    const centeringDiv = document.createElement("div");
+    centeringDiv.classList.add("centerConfirm");
+    maxDisplayEl.appendChild(centeringDiv);
     const confirmBtnDisplay = document.createElement("div");
     confirmBtnDisplay.classList.add("deco-button");
     confirmBtnDisplay.id = "confirm";
-    maxDisplayEl.appendChild(confirmBtnDisplay);
+    centeringDiv.appendChild(confirmBtnDisplay);
     const confirmPromptP = document.createElement("p");
     confirmPromptP.innerHTML = `Click on<br />to continue`;
-    maxDisplayEl.prepend(confirmPromptP);
+    centeringDiv.prepend(confirmPromptP);
 };
 
 const hideConfirmPrompt = () => {
-    const firstChildOfDisp = maxDisplayEl.childNodes[0];
-    const secondChildOfDisp = maxDisplayEl.childNodes[1]
-    secondChildOfDisp.remove();
-    firstChildOfDisp.remove();
+    const centeringDivEls = document.getElementsByClassName("centerConfirm");
+    // change to for-of loop to keep consistent results in removing elements
+    for (const el of centeringDivEls) {
+        el.remove();
+    }
 };
 
 const introScreen = () => {
+    grayButtons();
     messageDisplayEl.innerHTML = `Welcome. This is the Big O<sub><em>(n)</em></sub>number guessing game.`;
-    showConfirmPrompt();
+    !maxDisplayEl.textContent ? showConfirmPrompt() : "";
     divBtnElGrn.addEventListener("click", nextMsg)
+    messageDisplayEl.style.textAlign = "center";
+    messageDisplayEl.style.alignItems = "center";
+    messageDisplayEl.style.justifyContent = "center";
+    startResetContainer.addEventListener("click", startReset);
+    guessEl.removeEventListener("keypress", getRange);
+    guessEl.type = "text";
 };
 
-introScreen();
+const startReset = event => {
+    if (event.target.id === "start") {
+        reset();
+        divBtnElGrn.removeEventListener("click", nextMsg)
+        const randomMin = Math.floor(Math.random() * 100);
+        const randomMax = Math.ceil(Math.random() * 900) + 100;
+        minRangeValue = randomMin;
+        maxRangeValue = randomMax;
+        calcRange(randomMin, randomMax);
+        updateRange();
+        startRound();
+    } else if (event.target.id === "reset") {
+        reset();
+        introScreen();
+    }
+};
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// testing area
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+introScreen();
 // reset();

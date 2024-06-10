@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
 
 @keyframes pending {
     25% {
-        transform: translateX(29dvw);
+        transform: translateX(51%);
     }
     50% {
-        transform: scaleY(5) translateY(-1.5dvh);
+        transform: scaleY(5) translateY(-.5dvh);
     }
     75% {
-        transform: translateX(-29dvw);
+        transform: translateX(-50%);
     }
 }
 
@@ -21,6 +22,13 @@
 @keyframes colorFlash {
     50% {
         filter: hue-rotate(180deg) brightness(150%);
+        color: #000000;
+    }
+}
+
+@keyframes divEndShadow {
+    50% {
+        filter: drop-shadow(0.2dvw 0.2dvh .4dvw white) contrast(300%);
     }
 }
 
@@ -47,8 +55,8 @@
         background: radial-gradient(orange 30%, blue 50%);
     }
     50% {
-        transform: scale(1.5) translateY(-4.2dvh);
-        border: 10px inset gray;
+        transform: scale(1.4);
+        outline: .1dvw solid rgb(36, 34, 34);
         background: radial-gradient(orange 50%, blue 90%);
         font-size: 3.5dvw;
     }
@@ -105,26 +113,36 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    border-radius: 1dvh;
 }
 
 body {
-    background: #4400ff;
+    background: conic-gradient(#0091ff, #b62d2d);
     height: 100dvh;
     padding: 1dvw;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
 h1 {
-    font-size: 20dvw;
+    background: #ffffff55;
+    border: 1dvw double white;
+    border-radius: 1dvh;
+    font-family: "Tourney";
+    font-size: 15dvw;
     text-align: center;
+    margin-bottom: 1dvh;
 }
 
 section#display {
     font-family: "Tiny5", sans-serif;
     color: rgb(17, 164, 17);
+    width: 95dvw;
+    margin: 0 auto;
 }
 
 div#display-box {
-    border: 2px solid black;
     height: 40dvh;
     padding: 1px;
     display: grid;
@@ -136,26 +154,41 @@ div#display-box {
 section#user-space {
     display: flex;
     justify-content: center;
+    margin: 2dvh;
 }
 
 div#user-box {
-    border: 14px inset #990000;
-    border-radius: 10000000% 10000000%  10000000% 10000000%;
-    height: 30dvh;
-    width: 100dvw;
+    border: 2.5dvw inset #990000;
+    border-radius: 100dvh;
+    width: 90dvw;
+    aspect-ratio: 2.5;
     display: flex;
     justify-content: center;
     align-items: center;
     background: linear-gradient(#ffffff, #d3d2b0);
 }
 
+div#display-box > div {
+    border: 1dvw white groove;
+}
+
 div.number {
-    font-size: 50px;
+    font-size: 4dvw;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px white solid;
     background: #000000;
+}
+
+#min-value, #max-value {
+    position: relative;
+    display: grid;
+    grid-template-columns: fit-content(auto);
+    width: 20dvw;
+    height: 100%;
+    word-break: break-all;
+    font-size: 5dvw;
+    padding: .5dvw;
 }
 
 div#message {
@@ -167,18 +200,21 @@ div#message {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px white solid;
     background: #000000;
 }
 
 div#pending {
     animation: pending 5s infinite linear;
+    width: 100%;
 }
 
 input#guess {
-    width: 30dvw;
+    font-weight: bold;
+    width: 10dvw;
+    aspect-ratio: 1;
     max-width: 160px;
     text-align: center;
+    appearance: textfield;
 }
 
 input#guess:focus {
@@ -191,20 +227,28 @@ section#x-ception {
 }
 
 button {
+    border: .8dvw outset gray;
+    font-family: "Tourney", sans-serif;
+    font-weight: bold;
     width: 15dvw;
     aspect-ratio: 1;
     font-size: 4dvw;
+    margin-bottom: 2dvh;
 }
 
 button#high-low {
-    color: black;
-    font-weight: bold;
-    font-size: 3.5dvw;
+    font-size: 4dvw;
     background: linear-gradient(red, skyblue);
 }
 
+button#high-low #flip {
+    position: absolute;
+    transform: rotate(180deg);
+    bottom: -100%;
+    left: 0;
+}
+
 button#even-odd {
-    color: black;
     background: linear-gradient(white 50%, black 50%);
 }
 
@@ -219,10 +263,18 @@ button#sub-tractor {
 }
 
 button#dividends {
-    color: rgb(0, 0, 0);
+    color: #ffffff;
     font-weight: bold;
     font-size: 2.8dvw;
     background: linear-gradient(90deg, red 10%, orange 10%, yellow 20%, green 20%, blue 30%, indigo 40%, violet 60%, white 65%, white 80%, black 90%);
+}
+
+#high-low > span {
+    filter: drop-shadow(.4dvw .6dvh .4dvw white);
+}
+
+#dividends > span {
+    filter: drop-shadow(0.2dvw 0.2dvh .4dvw black) contrast(300%);
 }
 
 div#button-container {
@@ -261,15 +313,21 @@ div#but-three {
 div#confirm {
     background: radial-gradient(#aaffaa, #018e01);
     scale: .45;
-    display: inline;
-    translate: -13dvw -1.6dvh;
+    translate: -8dvw -.8dvh;
     animation: fade 2s infinite;
 }
 
 div > p {
     text-align: left;
-    font-size: 2dvw;
+    font-size: 2.5dvw;
     animation: fade 2s infinite;
+    width: 150%;
+    margin: 0 40%;
+}
+
+div.centerConfirm {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
 }
 
 div#pad {
@@ -336,6 +394,50 @@ div#pad-five {
     border-right: none;
 }
 
+div#start-reset {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    width: 20dvw;
+    position: absolute;
+    align-self: start;
+}
+
+div#start, #reset {
+    background: linear-gradient(93deg, #939393 40%, #393737 60%);
+    width: 1.5dvw;
+    aspect-ratio: .27;
+    margin: 0 2dvw;
+    border-radius: 100dvh;
+    rotate: 20deg;
+    cursor: pointer;
+}
+
+div#start {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+div#reset {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+p#start-text, #reset-text {
+    translate: -3dvw;
+    animation: none;
+}
+
+p#start-text {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+p#reset-text {
+    grid-row: 1;
+    grid-column: 2;
+}
+
 .spin {
     animation: spin 1.5s infinite;
 }
@@ -346,6 +448,10 @@ div#pad-five {
 
 .colorFlashHov:hover {
     animation: colorFlash 2s infinite;
+}
+
+#dividends.colorFlashHov:hover > span {
+    animation: divEndShadow 2s infinite;
 }
 
 .inverse:hover {
