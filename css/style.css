@@ -14,7 +14,7 @@
 
 @keyframes fade {
     50% {
-        opacity: 0%;
+        opacity: 40%;
     }
 }
 
@@ -54,6 +54,54 @@
     }
 }
 
+@keyframes shiftColor {
+    7% {
+        background: linear-gradient(red , skyblue 90%);
+    }
+    14% {
+        background: linear-gradient(red, skyblue 80%);
+    }
+    21% {
+        background: linear-gradient(red, skyblue 70%);
+    }
+    28% {
+        background: linear-gradient(red, skyblue 60%);
+    }
+    35% {
+        background: linear-gradient(red, skyblue 50%);
+    }
+    42% {
+        background: linear-gradient(red , skyblue 40%);
+    }
+    49% {
+        background: linear-gradient(red, skyblue 30%);
+    }
+    56% {
+        background: linear-gradient(red, skyblue 20%);
+    }
+    63% {
+        background: linear-gradient(red, skyblue 30%);
+    }
+    70% {
+        background: linear-gradient(red, skyblue 40%);
+    }
+    77% {
+        background: linear-gradient(red , skyblue 40%);
+    }
+    84% {
+        background: linear-gradient(red, skyblue 60%);
+    }
+    91% {
+        background: linear-gradient(red, skyblue 80%);
+    }
+    95% {
+        background: linear-gradient(red, skyblue);
+    }
+    100% {
+        background: linear-gradient(red, skyblue);
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -70,6 +118,11 @@ h1 {
     text-align: center;
 }
 
+section#display {
+    font-family: "Tiny5", sans-serif;
+    color: rgb(17, 164, 17);
+}
+
 div#display-box {
     border: 2px solid black;
     height: 40dvh;
@@ -77,14 +130,19 @@ div#display-box {
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 3fr 1fr;
-    font-family: "Tiny5", sans-serif;
+    text-align: center;
+}
+
+section#user-space {
+    display: flex;
+    justify-content: center;
 }
 
 div#user-box {
     border: 14px inset #990000;
     border-radius: 10000000% 10000000%  10000000% 10000000%;
-    height: 20dvh;
-    padding: 15dvh;
+    height: 30dvh;
+    width: 100dvw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,19 +156,19 @@ div.number {
     align-items: center;
     border: 3px white solid;
     background: #000000;
-    color: rgb(17, 164, 17);
 }
 
 div#message {
+    padding: 3dvh;
     text-align: center;
-    grid-column: 1 / span 3;
-    font-size: 30px;
+    grid-row: 2;
+    grid-column: span 3;
+    font-size: 3.2dvw;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 3px white solid;
     background: #000000;
-    color: rgb(17, 164, 17);
 }
 
 div#pending {
@@ -118,10 +176,9 @@ div#pending {
 }
 
 input#guess {
-    height: 5dvh;
+    width: 30dvw;
+    max-width: 160px;
     text-align: center;
-    position: relative;
-    z-index: 5;
 }
 
 input#guess:focus {
@@ -142,6 +199,7 @@ button {
 button#high-low {
     color: black;
     font-weight: bold;
+    font-size: 3.5dvw;
     background: linear-gradient(red, skyblue);
 }
 
@@ -155,26 +213,16 @@ span#odd {
 }
 
 button#sub-tractor {
+    font-size: 3.5dvw;
     color: white;
     background: radial-gradient(orange 1%, blue 1%);
 }
 
 button#dividends {
-    color: black;
+    color: rgb(0, 0, 0);
     font-weight: bold;
+    font-size: 2.8dvw;
     background: linear-gradient(90deg, red 10%, orange 10%, yellow 20%, green 20%, blue 30%, indigo 40%, violet 60%, white 65%, white 80%, black 90%);
-}
-
-button#even-odd:hover {
-    animation: inverse 2s infinite;
-}
-
-button#sub-tractor:hover {
-    animation: bigSmall 1.5s infinite;
-}
-
-button#dividends:hover {
-    animation: colorFlash 2s infinite;
 }
 
 div#button-container {
@@ -208,6 +256,20 @@ div#but-three {
     background: radial-gradient(#aaaaff, #0000ff);
     grid-row: 2;
     grid-column: 1;
+}
+
+div#confirm {
+    background: radial-gradient(#aaffaa, #018e01);
+    scale: .45;
+    display: inline;
+    translate: -13dvw -1.6dvh;
+    animation: fade 2s infinite;
+}
+
+div > p {
+    text-align: left;
+    font-size: 2dvw;
+    animation: fade 2s infinite;
 }
 
 div#pad {
@@ -280,4 +342,24 @@ div#pad-five {
 
 .colorFlash {
     animation: colorFlash 2s infinite;
+}
+
+.colorFlashHov:hover {
+    animation: colorFlash 2s infinite;
+}
+
+.inverse:hover {
+    animation: inverse 2s infinite;
+}
+
+.bigSmall:hover {
+    animation: bigSmall 1.5s infinite;
+}
+
+.shiftColor:hover {
+    animation: shiftColor 1s infinite;
+}
+
+.grayOut {
+    filter: grayscale(200%);
 }

@@ -17,3 +17,5 @@ Help buttons below:
 
 Each help button can only be used once per game.
 
+### Technologies used
+    HTML, CSS, JavaScript
