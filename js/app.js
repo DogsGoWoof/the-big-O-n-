@@ -19,6 +19,7 @@ const startResetContainer = document.getElementById("start-reset");
 const startBtn = document.getElementById("start");
 const resetBtn = document.getElementById("reset");
 
+// button audio
 const confirmBtnSound = new Audio("./resources/sounds/Confirm8-Bit.ogg");
 confirmBtnSound.volume = .4;
 const cancelBtnSound = new Audio("./resources/sounds/Cancel8-Bit.ogg");
@@ -37,14 +38,14 @@ let isRangeSet = false;
 let interID; // stores the random number visual change as a setInterval()
 let winnerID; // for toggling win animation on min-max elements
 let isSwitch = false; // switch to allow for different randomNumber range generation
-let isStart = false;
-let isReadRules = false;
-let pageTurner = 0;
+let isReadRules = false; // checks to see if user has read rules
+let pageTurner = 0; // tracker for showing messages in order
 
+// event callback function when guessing the possible n-value
 const guess = () => {
     if (event.key === "Enter") {
         if (guessEl.value < minRangeValue || guessEl.value > maxRangeValue) {
-            messageDisplayEl.innerHTML = `Please enter a valid number<br/> ${3 - tries} attempt(s) left`;
+            showTries("Please enter a valid number");
         } else if (tries < 3 && guessEl.value) {
             const attempt = event.target.value;
             tries++;
@@ -55,6 +56,7 @@ const guess = () => {
     }
 };
 
+// checks the guess against the actual n-value
 const verify = (number) => {
     if (number === nValue) {
         win = true;
@@ -65,6 +67,7 @@ const verify = (number) => {
     }
 };
 
+// win|loss check
 const winLose = () => {
     if (tries === 3 && !win) {
         clearInterval(interID);
@@ -82,12 +85,15 @@ const winLose = () => {
     }
 };
 
-const showTries = (message) => {
-    messageDisplayEl.innerHTML = message += `<br/> ${3 - tries} attempt(s) left`;
+// shorthand-use function
+const showTries = message => {
+    messageDisplayEl.innerHTML = message + `<br/> ${3 - tries} attempt(s) left`;
 }
 
+// updates displayed range values
 const updateRange = () => {
     if (minRangeValue > 999) {
+        // adds commas to format for display when value has 4+ digits
         minDisplayEl.textContent = minRangeValue.toLocaleString();
     } else if (minRangeValue >= 0) {
         minDisplayEl.textContent = minRangeValue;
@@ -138,12 +144,12 @@ const evenOdd = () => {
 const maxMin = () => {
     const maxMinDif = maxRangeValue - minRangeValue;
     let nMinDif = nValue - minRangeValue;
+    // add some randomness to change of new min-value to make it harder to determine n-value from the change
     const randomMinRangeValue = nMinDif - Math.floor((Math.random() * nMinDif));
     if (randomMinRangeValue < minRangeValue && maxMinDif < nValue) {
         showTries(`max-min-ing comparison results in no change in range`);
     } else if (nMinDif < nValue || maxMinDif > nValue) {
         if (randomMinRangeValue > minRangeValue) {
-            // add some randomness to change of new min-value to make it harder to determine n-value from the change
             minRangeValue = randomMinRangeValue;
             showTries(`max-ing min-value`);
         } else if (maxMinDif > nValue) {
@@ -182,11 +188,13 @@ const dividingEnds = () => {
     }
 };
 
+// calculates a random n-value within the min and max range
 const calcRange = (min, max) => {
     nValue = Math.ceil(Math.random() * (max - min)) + min;
     console.log(nValue);
 };
 
+// enables necessary functions and styling to play the game
 const startRound = () => {
     interID = setInterval(randomNumbers, 100);
     guessEl.value = "";
@@ -201,6 +209,7 @@ const startRound = () => {
     enableButtons();
 };
 
+// event callback function for custom range values
 const getRange = event => {
     if (event.key === "Enter") {
         if (!guessEl.value) {
@@ -227,6 +236,7 @@ const getRange = event => {
     }
 };
 
+// changes settings to allow for range value input
 const setRange = () => {
     guessEl.type = "number";
     guessEl.value = "";
@@ -239,7 +249,7 @@ const setRange = () => {
     guessEl.addEventListener("keypress", getRange);
 };
 
-
+// separated reset functionality to be used on gameover
 const resetCall = event => {
     if (event.key === "Enter" || event.target.className === "deco-button") {
         if (guessEl.value === "Y" || guessEl.value === "y" || event.target.id === "but-two") {
@@ -268,6 +278,7 @@ const resetCall = event => {
     }
 };
 
+// changes styling and input settings for gameover prompt
 const resetPrompt = () => {
     guessEl.removeEventListener("keypress", guess);
     grayButtons();
@@ -388,10 +399,12 @@ const grayOut = event => {
     event.target.style.filter = `grayscale(200%)`;
 };
 
+// grayOut specifically for evenOdd button due to black-white color
 const bwGrayOut = () => {
     event.target.style.filter = `invert(30%)`;
 };
 
+// for removing grayOut
 const colorInBtn = () => {
     highLowBtn.style.filter = ``;
     evenOddBtn.style.filter = ``;
@@ -399,6 +412,7 @@ const colorInBtn = () => {
     dividingEndsBtn.style.filter = ``;
 };
 
+// adds event listener to gray out button on use
 const addGrayOut = () => {
     highLowBtn.addEventListener("click", grayOut);
     evenOddBtn.addEventListener("click", bwGrayOut);
@@ -406,6 +420,7 @@ const addGrayOut = () => {
     dividingEndsBtn.addEventListener("click", grayOut);
 };
 
+// for making buttons gray when game is not in play
 const grayButtons = () => {
     disableButtons();
     removeBtnAnimations();
@@ -440,6 +455,7 @@ const readingRules = event => {
     }
 };
 
+// where game explanation mainly occurs
 const nextMsg = event => {
     pageTurner < 7 ? confirmBtnSound.play() : confirmBtnSound.muted = true;
     if (!isReadRules) {
@@ -476,6 +492,7 @@ const nextMsg = event => {
     }
 };
 
+// creates 'click to continue' message and adds it to the maxDisplayEl
 const showConfirmPrompt = () => {
     // create and add parent div to format confirm prompt
     const centeringDiv = document.createElement("div");
@@ -490,6 +507,7 @@ const showConfirmPrompt = () => {
     centeringDiv.prepend(confirmPromptP);
 };
 
+// removes the 'click to continue' message
 const hideConfirmPrompt = () => {
     const centeringDivEls = document.getElementsByClassName("centerConfirm");
     // change to for-of loop to keep consistent results in removing elements
@@ -498,12 +516,14 @@ const hideConfirmPrompt = () => {
     }
 };
 
+// resets the message position after the styling changes during custom range setting
 const resetMessageFormatting = () => {
     messageDisplayEl.style.textAlign = "center";
     messageDisplayEl.style.alignItems = "center";
     messageDisplayEl.style.justifyContent = "center";
 };
 
+// function called on page load to set up game
 const introScreen = () => {
     grayButtons();
     messageDisplayEl.innerHTML = `Welcome. This is <span style="color: white; margin: 0 1.5dvw;">The Big O<sub><em>(n)</em></sub></span>number guessing game.`;
@@ -517,6 +537,7 @@ const introScreen = () => {
     guessEl.value = "";
 };
 
+// adds functionality to start and reset div element buttons
 const startReset = event => {
     if (event.target.id === "start") {
         startBtnSound.play();
@@ -537,11 +558,5 @@ const startReset = event => {
         introScreen();
     }
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// testing area
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 introScreen();
