@@ -1,11 +1,23 @@
 # the-big-O-n-
 
 
+
 Based on [Big O notation](https://en.wikipedia.org/wiki/Big_O_notation) where finding a certain value within a range as a function of time.
-Find _n_ using the help functions and make your best guess based on comparative probability. Fun for the whole family. Only fun with the whole family.
+Find [_n_] using the help functions and make your best guess based on comparative probability.
+
+![Screenshot of game](./resources/images/gamescrnsht.png) <!-- add image from file -->
+
+## Getting Started
+Link to game webpage: 
+
+> [The Big O_(n)_](_blank) <!-- placeholder url -->
+
 
 ### How to play
-Input area is for entering a `number` guess of what the `n-value` could be. The n-value is between the `min-value` (on the left) and the `max-value` (on the right). The player has __3 attempts__ before the game must be reset to play again.
+Input area is for entering a `number` guess of what the `n-value` could be.  
+The n-value is between the `min-value` (on the left) and the `max-value` (on the right). The player has __3 attempts__ before the game must be reset to play again.  
+The start button begins a game immediately with random numbers for min and max (from 0 - 1000);  
+The reset button resets the game so you don't have to refresh the page if you choose to not replay.  
 
 
 Help buttons below:
@@ -18,5 +30,12 @@ Help buttons below:
 Each help button can only be used once per game.
 Both max-min-ing and div/iding e/nd can only be used if they change a range value, otherwise they will display a message to the player telling them they result in no change.
 
+### Attributions
+- Emoticons from Windows clipboard shortcut (Windows key + V)
+- Sounds from [Official Hamster Republic Role Playing Game Construction Engine (O.H.R.RPG.C.E)](https://rpg.hamsterrepublic.com/ohrrpgce/Free_Sound_Effects) <!-- add after adding sounds -->
+- Fonts ("Tiny5", "Tourney") from [Google Fonts](https://fonts.google.com/)
+
 ### Technologies used
-    HTML, CSS, JavaScript
+- HTML 
+- CSS 
+- JavaScript

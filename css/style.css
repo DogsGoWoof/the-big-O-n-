@@ -110,6 +110,12 @@
     }
 }
 
+@keyframes wipe {
+    50% {
+        transform: rotate(-40deg) scaleY(.8);
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -118,6 +124,7 @@
 
 body {
     background: conic-gradient(#0091ff, #b62d2d);
+    background-size: 100dvw 105dvh;
     height: 100dvh;
     padding: 1dvw;
     display: flex;
@@ -313,7 +320,7 @@ div#but-three {
 div#confirm {
     background: radial-gradient(#aaffaa, #018e01);
     scale: .45;
-    translate: -8dvw -.8dvh;
+    translate: -7dvw -.5dvh;
     animation: fade 2s infinite;
 }
 
@@ -438,6 +445,10 @@ p#reset-text {
     grid-column: 2;
 }
 
+.wipe {
+    animation: wipe .75s infinite;
+}
+
 .spin {
     animation: spin 1.5s infinite;
 }
@@ -464,8 +475,4 @@ p#reset-text {
 
 .shiftColor:hover {
     animation: shiftColor 1s infinite;
-}
-
-.grayOut {
-    filter: grayscale(200%);
 }
