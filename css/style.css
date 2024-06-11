@@ -5,9 +5,11 @@
     25% {
         transform: translateX(51%);
     }
+
     50% {
         transform: scaleY(5) translateY(-.5dvh);
     }
+
     75% {
         transform: translateX(-50%);
     }
@@ -48,12 +50,15 @@
     25% {
         background: radial-gradient(orange 3%, blue 5%);
     }
+
     37.5% {
         background: radial-gradient(orange 10%, blue 20%);
     }
+
     45% {
         background: radial-gradient(orange 30%, blue 50%);
     }
+
     50% {
         transform: scale(1.4);
         outline: .1dvw solid rgb(36, 34, 34);
@@ -64,47 +69,61 @@
 
 @keyframes shiftColor {
     7% {
-        background: linear-gradient(red , skyblue 90%);
+        background: linear-gradient(red, skyblue 90%);
     }
+
     14% {
         background: linear-gradient(red, skyblue 80%);
     }
+
     21% {
         background: linear-gradient(red, skyblue 70%);
     }
+
     28% {
         background: linear-gradient(red, skyblue 60%);
     }
+
     35% {
         background: linear-gradient(red, skyblue 50%);
     }
+
     42% {
-        background: linear-gradient(red , skyblue 40%);
+        background: linear-gradient(red, skyblue 40%);
     }
+
     49% {
         background: linear-gradient(red, skyblue 30%);
     }
+
     56% {
         background: linear-gradient(red, skyblue 20%);
     }
+
     63% {
         background: linear-gradient(red, skyblue 30%);
     }
+
     70% {
         background: linear-gradient(red, skyblue 40%);
     }
+
     77% {
-        background: linear-gradient(red , skyblue 40%);
+        background: linear-gradient(red, skyblue 40%);
     }
+
     84% {
         background: linear-gradient(red, skyblue 60%);
     }
+
     91% {
         background: linear-gradient(red, skyblue 80%);
     }
+
     95% {
         background: linear-gradient(red, skyblue);
     }
+
     100% {
         background: linear-gradient(red, skyblue);
     }
@@ -165,7 +184,7 @@ section#user-space {
 }
 
 div#user-box {
-    border: 2.5dvw inset #990000;
+    border: 2.5dvw outset #990000;
     border-radius: 100dvh;
     width: 90dvw;
     aspect-ratio: 2.5;
@@ -175,7 +194,7 @@ div#user-box {
     background: linear-gradient(#ffffff, #d3d2b0);
 }
 
-div#display-box > div {
+div#display-box>div {
     border: 1dvw white groove;
 }
 
@@ -187,7 +206,8 @@ div.number {
     background: #000000;
 }
 
-#min-value, #max-value {
+#min-value,
+#max-value {
     position: relative;
     display: grid;
     grid-template-columns: fit-content(auto);
@@ -225,7 +245,7 @@ input#guess {
 }
 
 input#guess:focus {
-    outline: 8px inset yellow;
+    outline: 8px outset yellow;
 }
 
 section#x-ception {
@@ -251,7 +271,6 @@ button#high-low {
 button#high-low #flip {
     position: absolute;
     transform: rotate(180deg);
-    bottom: -100%;
     left: 0;
 }
 
@@ -276,11 +295,11 @@ button#dividends {
     background: linear-gradient(90deg, red 10%, orange 10%, yellow 20%, green 20%, blue 30%, indigo 40%, violet 60%, white 65%, white 80%, black 90%);
 }
 
-#high-low > span {
+#high-low>span {
     filter: drop-shadow(.4dvw .6dvh .4dvw white);
 }
 
-#dividends > span {
+#dividends>span {
     filter: drop-shadow(0.2dvw 0.2dvh .4dvw black) contrast(300%);
 }
 
@@ -324,7 +343,7 @@ div#confirm {
     animation: fade 2s infinite;
 }
 
-div > p {
+div>p {
     text-align: left;
     font-size: 2.5dvw;
     animation: fade 2s infinite;
@@ -410,7 +429,8 @@ div#start-reset {
     align-self: start;
 }
 
-div#start, #reset {
+div#start,
+#reset {
     background: linear-gradient(93deg, #939393 40%, #393737 60%);
     width: 1.5dvw;
     aspect-ratio: .27;
@@ -430,7 +450,8 @@ div#reset {
     grid-column: 2;
 }
 
-p#start-text, #reset-text {
+p#start-text,
+#reset-text {
     translate: -3dvw;
     animation: none;
 }
@@ -461,7 +482,7 @@ p#reset-text {
     animation: colorFlash 2s infinite;
 }
 
-#dividends.colorFlashHov:hover > span {
+#dividends.colorFlashHov:hover>span {
     animation: divEndShadow 2s infinite;
 }
 

@@ -318,7 +318,7 @@ const enableButtons = () => {
 
 const randomNumbers = () => {
     let randomNumber
-        // added if-else statement to allow random number generation display min and max values
+    // added if-else statement to allow random number generation display min and max values
     if (isSwitch) {
         randomNumber = Math.ceil(Math.random() * (maxRangeValue - minRangeValue)) + minRangeValue;
         isSwitch = false;
@@ -472,12 +472,12 @@ const nextMsg = event => {
         guessEl.addEventListener("keypress", readingRules);
         pageTurner++;
         divBtnElRed.style.cursor = "pointer";
-        setTimeout(() => {divBtnEls.addEventListener("click", readingRules)}, 100);
+        setTimeout(() => { divBtnEls.addEventListener("click", readingRules) }, 100);
     }
 };
 
 const showConfirmPrompt = () => {
-        // create and add parent div to format confirm prompt
+    // create and add parent div to format confirm prompt
     const centeringDiv = document.createElement("div");
     centeringDiv.classList.add("centerConfirm");
     maxDisplayEl.appendChild(centeringDiv);
@@ -492,7 +492,7 @@ const showConfirmPrompt = () => {
 
 const hideConfirmPrompt = () => {
     const centeringDivEls = document.getElementsByClassName("centerConfirm");
-        // change to for-of loop to keep consistent results in removing elements
+    // change to for-of loop to keep consistent results in removing elements
     for (const el of centeringDivEls) {
         el.remove();
     }
