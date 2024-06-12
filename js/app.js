@@ -191,7 +191,6 @@ const dividingEnds = () => {
 // calculates a random n-value within the min and max range
 const calcRange = (min, max) => {
     nValue = Math.ceil(Math.random() * (max - min)) + min;
-    console.log(nValue);
 };
 
 // enables necessary functions and styling to play the game
