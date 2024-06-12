@@ -308,6 +308,7 @@ const reset = event => {
     removeWinAnim();
     setRange();
     divBtnElGrn.removeEventListener("click", nextMsg)
+    guessEl.removeEventListener("keypress", nextMsg);
     guessEl.removeEventListener("keypress", guess);
     clearInterval(interID);
     removeWinAnim();
@@ -448,6 +449,7 @@ const readingRules = event => {
             divBtnElGrn.style.cursor = "default";
             divBtnElRed.style.cursor = "default";
             divBtnElGrn.removeEventListener("click", nextMsg)
+            guessEl.removeEventListener("keypress", nextMsg);
             divBtnEls.removeEventListener("click", readingRules);
             guessEl.removeEventListener("keypress", readingRules);
         }
@@ -457,38 +459,41 @@ const readingRules = event => {
 
 // where game explanation mainly occurs
 const nextMsg = event => {
-    pageTurner < 7 ? confirmBtnSound.play() : confirmBtnSound.muted = true;
-    if (!isReadRules) {
-        messageDisplayEl.innerHTML = `Would you like to read the rules?<br />Y/N?`;
-        guessEl.type = "text";
-        guessEl.addEventListener("keypress", readingRules);
-        divBtnEls.addEventListener("click", readingRules);
-    }
-    if (pageTurner === 0 && isReadRules) {
-        messageDisplayEl.innerHTML = `First, set the range the [n-value] will be between.`;
-        pageTurner++;
-    } else if (pageTurner === 1) {
-        messageDisplayEl.innerHTML = `Decide the minimum range value followed by the maximum range value by entering them in the input below followed by pressing "Enter".`;
-        pageTurner++;
-    } else if (pageTurner === 2) {
-        messageDisplayEl.innerHTML = `Then try to guess what the generated n-value is using the same input for your guesses.`;
-        pageTurner++;
-    } else if (pageTurner === 3) {
-        messageDisplayEl.innerHTML = `If you want clues on what the [n-value] may be use the buttons below to (possibly) change the min and max values.<br />The [n-value] will always be within the displayed range.`;
-        pageTurner++;
-    } else if (pageTurner === 4) {
-        messageDisplayEl.innerHTML = `You can use the [Start] button to start a game with a random range (min 1-100, max 100-1000) or the [Reset] button to return to the beginning without refreshing the page.`;
-        pageTurner++;
-    } else if (pageTurner === 5) {
-        messageDisplayEl.innerHTML = `If you'd like to know more on what the buttons do refer to the README.`;
-        pageTurner++;
-    } else if (pageTurner === 6) {
-        messageDisplayEl.innerHTML = `Would you like to read the rules again?<br />Y/N?`;
-        hideConfirmPrompt();
-        guessEl.addEventListener("keypress", readingRules);
-        pageTurner++;
-        divBtnElRed.style.cursor = "pointer";
-        setTimeout(() => { divBtnEls.addEventListener("click", readingRules) }, 100);
+    // callback for keypress or click element events
+    if (event.key === "Enter" || event.target.id === "but-two") {
+        if (event.target.id === "but-two") pageTurner < 7 ? confirmBtnSound.play() : confirmBtnSound.muted = true;
+        if (!isReadRules) {
+            messageDisplayEl.innerHTML = `Would you like to read the rules?<br />Y/N?`;
+            guessEl.type = "text";
+            guessEl.addEventListener("keypress", readingRules);
+            divBtnEls.addEventListener("click", readingRules);
+        }
+        if (pageTurner === 0 && isReadRules) {
+            messageDisplayEl.innerHTML = `First, set the range the [n-value] will be between.`;
+            pageTurner++;
+        } else if (pageTurner === 1) {
+            messageDisplayEl.innerHTML = `Decide the minimum range value followed by the maximum range value by entering them in the input below followed by pressing "Enter".`;
+            pageTurner++;
+        } else if (pageTurner === 2) {
+            messageDisplayEl.innerHTML = `Then try to guess what the generated n-value is using the same input for your guesses.`;
+            pageTurner++;
+        } else if (pageTurner === 3) {
+            messageDisplayEl.innerHTML = `If you want clues on what the [n-value] may be use the buttons below to (possibly) change the min and max values.<br />The [n-value] will always be within the displayed range.`;
+            pageTurner++;
+        } else if (pageTurner === 4) {
+            messageDisplayEl.innerHTML = `You can use the [Start] button to start a game with a random range (min 1-100, max 100-1000) or the [Reset] button to return to the beginning without refreshing the page.`;
+            pageTurner++;
+        } else if (pageTurner === 5) {
+            messageDisplayEl.innerHTML = `If you'd like to know more on what the buttons do refer to the README.`;
+            pageTurner++;
+        } else if (pageTurner === 6) {
+            messageDisplayEl.innerHTML = `Would you like to read the rules again?<br />Y/N?`;
+            hideConfirmPrompt();
+            guessEl.addEventListener("keypress", readingRules);
+            pageTurner++;
+            divBtnElRed.style.cursor = "pointer";
+            setTimeout(() => { divBtnEls.addEventListener("click", readingRules) }, 100);
+        }
     }
 };
 
@@ -529,7 +534,8 @@ const introScreen = () => {
     messageDisplayEl.innerHTML = `Welcome. This is <span style="color: white; margin: 0 1.5dvw;">The Big O<sub><em>(n)</em></sub></span>number guessing game.`;
     !maxDisplayEl.textContent ? showConfirmPrompt() : "";
     divBtnElGrn.style.cursor = "pointer";
-    divBtnElGrn.addEventListener("click", nextMsg)
+    divBtnElGrn.addEventListener("click", nextMsg);
+    guessEl.addEventListener("keypress", nextMsg);
     resetMessageFormatting();
     startResetContainer.addEventListener("click", startReset);
     guessEl.removeEventListener("keypress", getRange);
@@ -543,8 +549,9 @@ const startReset = event => {
         startBtnSound.play();
         reset();
         divBtnElGrn.style.cursor = "default";
-        divBtnElRed.style.cursor = "default";
+        divBtnElRed.style.cursor = "default";;
         divBtnElGrn.removeEventListener("click", nextMsg)
+        guessEl.removeEventListener("keypress", nextMsg);
         const randomMin = Math.floor(Math.random() * 100);
         const randomMax = Math.ceil(Math.random() * 900) + 100;
         minRangeValue = randomMin;

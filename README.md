@@ -5,7 +5,7 @@
 Based on [Big O notation](https://en.wikipedia.org/wiki/Big_O_notation) in reference to finding a certain value within a range as a function of time.
 Find [_n_] using the help functions and make your best guess based on comparative probability.
 
-![Screenshot of game](./resources/images/gamescrnsht.png)
+![Screenshot of game. From top to bottom: title on top of page, split boxes representing monitors, controller-styled elements for input, 4 help buttons below](./resources/images/gamescrnsht.png)
 
 ## Getting Started
 Link to game webpage: 
@@ -40,3 +40,8 @@ Both `max-min-ing` and `div/iding e/nd` can only be used if they change a range 
 - HTML 
 - CSS 
 - JavaScript
+
+#### Next steps
+- Add mini-minigame playable with controller when player chooses to not replay  
+- Add different patterns to range (ex. negative values, nValue generation follows certain number generation) and help buttons (ex. different mathematical comparisons, different sets depending on range)  
+- Add sounds to more events to make the game feel more responsive/interactive  
