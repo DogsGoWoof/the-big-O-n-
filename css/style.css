@@ -7,11 +7,11 @@
     }
 
     50% {
-        transform: scaleY(5) translateY(-.5dvh);
+        transform: scaleY(5) translateY(-20%);
     }
 
     75% {
-        transform: translateX(-50%);
+        transform: translateX(-49%);
     }
 }
 
@@ -145,10 +145,9 @@ body {
     background: conic-gradient(#0091ff, #b62d2d);
     background-size: 100dvw 105dvh;
     height: 100dvh;
+    width: 70dvw;
     padding: 1dvw;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
+    margin: 0 auto;
 }
 
 h1 {
@@ -156,42 +155,53 @@ h1 {
     border: 1dvw double white;
     border-radius: 1dvh;
     font-family: "Tourney";
-    font-size: 15dvw;
+    font-size: 8dvw;
     text-align: center;
     margin-bottom: 1dvh;
+}
+
+main {
+    display: flex;
+    flex-flow: column;
+    height: 70%;
 }
 
 section#display {
     font-family: "Tiny5", sans-serif;
     color: rgb(17, 164, 17);
-    width: 95dvw;
+    width: 95%;
     margin: 0 auto;
+    grid-row: 1;
 }
 
 div#display-box {
-    height: 40dvh;
+    height: 40%;
     padding: 1px;
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 3fr 1fr;
     text-align: center;
+    margin-bottom: .4%;
 }
 
 section#user-space {
     display: flex;
     justify-content: center;
-    margin: 2dvh;
+    margin: 2%;
+    width: 100%;
+    align-self: center;
 }
 
 div#user-box {
-    border: 2.5dvw outset #990000;
+    border: 1.5dvw outset #990000;
     border-radius: 100dvh;
-    width: 90dvw;
-    aspect-ratio: 2.5;
+    width: 90%;
+    aspect-ratio: 2.7;
     display: flex;
     justify-content: center;
     align-items: center;
     background: linear-gradient(#ffffff, #d3d2b0);
+    flex: 0 2 auto;
 }
 
 div#display-box>div {
@@ -199,11 +209,14 @@ div#display-box>div {
 }
 
 div.number {
-    font-size: 4dvw;
+    font-size: 3dvw;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #000000;
+    height: 100%;
+    aspect-ratio: 2.5;
+    width: 100%;
 }
 
 #min-value,
@@ -211,11 +224,16 @@ div.number {
     position: relative;
     display: grid;
     grid-template-columns: fit-content(auto);
-    width: 20dvw;
-    height: 100%;
     word-break: break-all;
     font-size: 5dvw;
+    height: 100%;
     padding: .5dvw;
+}
+
+#n-value {
+    display: flex;
+    flex: 0 1 auto;
+    font-size: 2.5dvw;
 }
 
 div#message {
@@ -223,11 +241,13 @@ div#message {
     text-align: center;
     grid-row: 2;
     grid-column: span 3;
-    font-size: 3.2dvw;
+    font-size: 2.2dvw;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #000000;
+    aspect-ratio: 4;
+    margin: 0 0 -2% 0;
 }
 
 div#pending {
@@ -237,7 +257,7 @@ div#pending {
 
 input#guess {
     font-weight: bold;
-    width: 10dvw;
+    width: 10%;
     aspect-ratio: 1;
     max-width: 160px;
     text-align: center;
@@ -254,17 +274,17 @@ section#x-ception {
 }
 
 button {
-    border: .8dvw outset gray;
+    border: .6dvw outset gray;
     font-family: "Tourney", sans-serif;
     font-weight: bold;
-    width: 15dvw;
+    width: 8dvw;
     aspect-ratio: 1;
-    font-size: 4dvw;
-    margin-bottom: 2dvh;
+    font-size: 1.5dvw;
+    margin: 0 0 2% 0;
 }
 
 button#high-low {
-    font-size: 4dvw;
+    font-size: 1.7dvw;
     background: linear-gradient(red, skyblue);
 }
 
@@ -283,7 +303,7 @@ span#odd {
 }
 
 button#sub-tractor {
-    font-size: 3.5dvw;
+    font-size: 1.7dvw;
     color: white;
     background: radial-gradient(orange 1%, blue 1%);
 }
@@ -291,7 +311,7 @@ button#sub-tractor {
 button#dividends {
     color: #ffffff;
     font-weight: bold;
-    font-size: 2.8dvw;
+    font-size: 1.5dvw;
     background: linear-gradient(90deg, red 10%, orange 10%, yellow 20%, green 20%, blue 30%, indigo 40%, violet 60%, white 65%, white 80%, black 90%);
 }
 
@@ -310,13 +330,13 @@ div#button-container {
 }
 
 div.deco-button {
-    width: 4.5dvw;
+    width: 3dvw;
     aspect-ratio: 1;
     background: radial-gradient(#ffaaaa, #ff0000);
-    border: outset 3px gray;
+    border: outset .25dvw gray;
     border-radius: 50%;
     position: relative;
-    right: -10dvw;
+    right: -8dvw;
 }
 
 div#but-one {
@@ -338,17 +358,17 @@ div#but-three {
 
 div#confirm {
     background: radial-gradient(#aaffaa, #018e01);
-    scale: .45;
-    translate: -7dvw -.5dvh;
+    scale: .55;
+    translate: -7dvw -1dvh;
     animation: fade 2s infinite;
 }
 
 div>p {
     text-align: left;
-    font-size: 2.5dvw;
+    font-size: 1.5dvw;
     animation: fade 2s infinite;
-    width: 150%;
-    margin: 0 40%;
+    width: 180%;
+    margin-left: 20%;
 }
 
 div.centerConfirm {
@@ -361,11 +381,11 @@ div#pad {
     grid-template-rows: auto auto auto;
     grid-template-columns: auto auto auto;
     position: relative;
-    right: 10dvw;
+    right: 8dvw;
 }
 
 div.padbox {
-    width: 3dvw;
+    width: 2.8dvw;
     aspect-ratio: 1;
     background: linear-gradient(#393737, gray)
 }
@@ -424,7 +444,6 @@ div#start-reset {
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
-    width: 20dvw;
     position: absolute;
     align-self: start;
 }
@@ -432,9 +451,9 @@ div#start-reset {
 div#start,
 #reset {
     background: linear-gradient(93deg, #939393 40%, #393737 60%);
-    width: 1.5dvw;
-    aspect-ratio: .27;
-    margin: 0 2dvw;
+    width: 1dvw;
+    aspect-ratio: .29;
+    margin: 0 1.4dvw;
     border-radius: 100dvh;
     rotate: 20deg;
     cursor: pointer;
@@ -452,8 +471,10 @@ div#reset {
 
 p#start-text,
 #reset-text {
-    translate: -3dvw;
+    font-size: 1.5dvw;
+    translate: -1dvw;
     animation: none;
+    margin-top: 1dvh;
 }
 
 p#start-text {
@@ -496,4 +517,16 @@ p#reset-text {
 
 .shiftColor:hover {
     animation: shiftColor 1s infinite;
+}
+
+/* media query for resizing to keep page contained on wider screens */
+@media (width > 1100px) {
+    body {
+        margin-top: -9%;
+        width: 65%;
+        scale: .64;
+    }
+    div#message {
+        font-size: 2dvw;
+    }
 }

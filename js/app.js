@@ -295,6 +295,7 @@ const reset = event => {
     minRangeValue = "";
     maxRangeValue = "";
     isRangeSet = false;
+    isReadRules = false;
     win = false;
     tries = 0;
     nValue = 0;
@@ -305,15 +306,15 @@ const reset = event => {
     guessEl.value = "";
     guessEl.type = "number";
     guessEl.disabled = false;
-    removeWinAnim();
-    setRange();
     divBtnElGrn.removeEventListener("click", nextMsg)
     guessEl.removeEventListener("keypress", nextMsg);
     guessEl.removeEventListener("keypress", guess);
+    guessEl.removeEventListener("keypress", readingRules);
+    divBtnEls.removeEventListener("click", readingRules);
     clearInterval(interID);
     removeWinAnim();
-    guessEl.removeEventListener("keypress", readingRules);
-    isReadRules = false;
+    removeWinAnim();
+    setRange();
 };
 
 const disableButtons = () => {
@@ -461,7 +462,7 @@ const readingRules = event => {
 const nextMsg = event => {
     // callback for keypress or click element events
     if (event.key === "Enter" || event.target.id === "but-two") {
-        if (event.target.id === "but-two") pageTurner < 7 ? confirmBtnSound.play() : confirmBtnSound.muted = true;
+        if (event.target.id === "but-two") pageTurner < 9 ? confirmBtnSound.play() : confirmBtnSound.muted = true;
         if (!isReadRules) {
             messageDisplayEl.innerHTML = `Would you like to read the rules?<br />Y/N?`;
             guessEl.type = "text";
@@ -478,15 +479,21 @@ const nextMsg = event => {
             messageDisplayEl.innerHTML = `Then try to guess what the generated n-value is using the same input for your guesses.`;
             pageTurner++;
         } else if (pageTurner === 3) {
-            messageDisplayEl.innerHTML = `If you want clues on what the [n-value] may be use the buttons below to (possibly) change the min and max values.<br />The [n-value] will always be within the displayed range.`;
+            messageDisplayEl.innerHTML = `If you want clues on what the [n-value] may be use the buttons below to (possibly) change the min and max values.`;
             pageTurner++;
         } else if (pageTurner === 4) {
-            messageDisplayEl.innerHTML = `You can use the [Start] button to start a game with a random range (min 1-100, max 100-1000) or the [Reset] button to return to the beginning without refreshing the page.`;
+            messageDisplayEl.innerHTML = `The [n-value] will always be within the displayed range.`;
             pageTurner++;
         } else if (pageTurner === 5) {
+            messageDisplayEl.innerHTML = `You can use the [Start] button to start a game with a random range (min 1-100, max 100-1000)`;
+            pageTurner++;
+        }  else if (pageTurner === 6) {
+            messageDisplayEl.innerHTML = `Or the [Reset] button to return to the beginning without refreshing the page.`;
+            pageTurner++;
+        }  else if (pageTurner === 7) {
             messageDisplayEl.innerHTML = `If you'd like to know more on what the buttons do refer to the README.`;
             pageTurner++;
-        } else if (pageTurner === 6) {
+        } else if (pageTurner === 8) {
             messageDisplayEl.innerHTML = `Would you like to read the rules again?<br />Y/N?`;
             hideConfirmPrompt();
             guessEl.addEventListener("keypress", readingRules);

@@ -10,7 +10,7 @@ Find [_n_] using the help functions and make your best guess based on comparativ
 ## Getting Started
 Link to game webpage: 
 
-> [The Big O_(n)_](_blank) <!-- placeholder url -->
+> [The Big O_(n)_](https://dogsgowoof.github.io/the-big-O-n-/)
 
 
 ### How to play
