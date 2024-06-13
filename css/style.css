@@ -263,7 +263,7 @@ input#guess {
     max-width: 500px;
     text-align: center;
     appearance: textfield;
-    translate: 0 1.5dvh;
+    translate: 0 .75dvh;
     padding: 0;
 }
 

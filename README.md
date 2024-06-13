@@ -45,3 +45,5 @@ Both `max-min-ing` and `div/iding e/nd` can only be used if they change a range 
 - Add mini-minigame playable with controller when player chooses to not replay  
 - Add different patterns to range (ex. negative values, nValue generation follows certain number generation) and help buttons (ex. different mathematical comparisons, different sets depending on range)  
 - Add sounds to more events to make the game feel more responsive/interactive  
+- Add controller/screen color-style options  
+- Add random guess within range button  
