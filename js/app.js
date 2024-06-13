@@ -39,6 +39,7 @@ let interID; // stores the random number visual change as a setInterval()
 let winnerID; // for toggling win animation on min-max elements
 let isSwitch = false; // switch to allow for different randomNumber range generation
 let isReadRules = false; // checks to see if user has read rules
+let enableBtn; // for delaying event activation on divBtnElGrn for readingRules
 let pageTurner = 0; // tracker for showing messages in order
 
 // event callback function when guessing the possible n-value
@@ -299,6 +300,7 @@ const reset = event => {
     tries = 0;
     nValue = 0;
     pageTurner = 0;
+    enableBtn = false;
     nDisplayEl.innerHTML = `<div id="pending">.</div>`;
     minDisplayEl.textContent = "";
     maxDisplayEl.textContent = "";
@@ -434,7 +436,7 @@ const grayButtons = () => {
 
 const readingRules = event => {
     if (event.key === "Enter" || event.target.className === "deco-button") {
-        if (guessEl.value === "Y" || guessEl.value === "y" || event.target.id === "but-two") {
+        if (guessEl.value === "Y" || guessEl.value === "y" || (event.target.id === "but-two" && enableBtn)) {
             divBtnEls.removeEventListener("click", readingRules);
             confirmBtnSound.muted = false;
             event.target.id === "but-two" ? confirmBtnSound.play() : "";
@@ -454,6 +456,7 @@ const readingRules = event => {
             guessEl.removeEventListener("keypress", readingRules);
         }
         guessEl.value = "";
+        enableBtn = true;
     }
 };
 
@@ -464,9 +467,11 @@ const nextMsg = event => {
         if (event.target.id === "but-two") pageTurner < 9 ? confirmBtnSound.play() : confirmBtnSound.muted = true;
         if (!isReadRules) {
             messageDisplayEl.innerHTML = `Would you like to read the rules?<br />Y/N?`;
+            divBtnElRed.style.cursor = "pointer";
             guessEl.type = "text";
             guessEl.addEventListener("keypress", readingRules);
             divBtnEls.addEventListener("click", readingRules);
+            // setTimeout(() => {divBtnEls.addEventListener("click", readingRules)}, 10);
         }
         if (pageTurner === 0 && isReadRules) {
             messageDisplayEl.innerHTML = `First, set the range the [n-value] will be between.`;

@@ -258,15 +258,22 @@ div#pending {
 
 input#guess {
     font-weight: bold;
-    width: 10%;
-    aspect-ratio: 1;
-    max-width: 160px;
+    height: 20%;
+    aspect-ratio: 3;
+    max-width: 500px;
     text-align: center;
     appearance: textfield;
+    translate: 0 1.5dvh;
+    padding: 0;
+}
+
+/* to remove number-type input's arrows in not firefox */
+::-webkit-inner-spin-button {
+    appearance: none;
 }
 
 input#guess:focus {
-    outline: 8px outset yellow;
+    outline: .65dvw outset yellow;
 }
 
 section#x-ception {
@@ -528,5 +535,8 @@ p#reset-text {
     }
     div#message {
         font-size: 2dvw;
+    }
+    input#guess {
+        font-size: 1.8dvw;
     }
 }
