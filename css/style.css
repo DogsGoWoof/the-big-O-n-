@@ -526,6 +526,21 @@ p#reset-text {
     animation: shiftColor 1s infinite;
 }
 
+audio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0%;
+    background: transparent;
+}
+
+audio:hover {
+    opacity: 100%;
+    outline: .01dvw white solid;
+    background: grey;
+    border-radius: 0;
+}
+
 /* media query for resizing to keep page contained on wider screens */
 @media (width > 1000px) {
     body {

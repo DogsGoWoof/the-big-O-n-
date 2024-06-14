@@ -33,8 +33,9 @@ Both `max-min-ing` and `div/iding e/nd` can only be used if they change a range 
 
 ### Attributions
 - Emoticons from Windows clipboard shortcut (Windows key + V)
+- Fonts ("Tiny5", "Tourney") from [Google Fonts](https://fonts.google.com/)  
 - Sounds from [Official Hamster Republic Role Playing Game Construction Engine (O.H.R.RPG.C.E)](https://rpg.hamsterrepublic.com/ohrrpgce/Free_Sound_Effects)
-- Fonts ("Tiny5", "Tourney") from [Google Fonts](https://fonts.google.com/)
+- Music from [zukisuzuki](https://zukisuzukibgm.com/) | Band: potekomuzin | Born in Tokyo in 1987. musician. Lo-Fi home recorder.
 
 ### Technologies used
 - HTML 

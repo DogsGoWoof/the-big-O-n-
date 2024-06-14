@@ -29,6 +29,12 @@ startBtnSound.volume = .3;
 const resetBtnSound = new Audio("./resources/sounds/Select8-Bit.ogg");
 resetBtnSound.volume = .3;
 
+// music
+const audioEl = document.getElementsByTagName("audio")[0];
+audioEl.loop = "true";
+audioEl.src = "./resources/music/Crane-Game.mp3"
+audioEl.volume = ".01";
+
 let minRangeValue;
 let maxRangeValue;
 let nValue;
@@ -72,7 +78,7 @@ const verify = (number) => {
 const winLose = () => {
     if (tries === 3 && !win) {
         clearInterval(interID);
-        nDisplayEl.innerHTML = "(´。＿。｀)";
+        nDisplayEl.innerHTML = `(´。＿。｀)<br>n was ${nValue}`;
         messageDisplayEl.innerHTML = `No more tries left.<br> Try again?<br> Y/N?`;
         resetPrompt()
     } else if (win) {
