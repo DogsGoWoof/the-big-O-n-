@@ -477,7 +477,6 @@ const nextMsg = event => {
             guessEl.type = "text";
             guessEl.addEventListener("keypress", readingRules);
             divBtnEls.addEventListener("click", readingRules);
-            // setTimeout(() => {divBtnEls.addEventListener("click", readingRules)}, 10);
         }
         if (pageTurner === 0 && isReadRules) {
             messageDisplayEl.innerHTML = `First, set the range the [n-value] will be between.`;
